@@ -1,6 +1,6 @@
 /* Global Variables */
 const apiKey = 'c40eef61fab5968e0a12ecbbf7760348';
-let baseURL = `http://api.openweathermap.org/data/2.5/weather`;
+let baseURL = `https://api.openweathermap.org/data/2.5/weather`;
 
 // Create a new date instance dynamically with JS
 const months = [
@@ -28,14 +28,13 @@ button.addEventListener('click', getInfo );
 function getInfo() {
   const zip = document.getElementById('zip').value;
 
-  if ( zip === '' ) {
-    alert( 'Please enter a zip code' );
-    return;
-  } else {
+  if ( zip.match(/^\d+/) && zip.match(/^\d+/)[0].length === 5 ) {
     const url = `${baseURL}?zip=${zip}&appid=${apiKey}&units=imperial`;
     getWeather( url );
+  } else {
+    alert( 'Please enter a valid Zip Code' );
+    return;
   }
-
 }
 
 const getWeather = async ( url ) => {
