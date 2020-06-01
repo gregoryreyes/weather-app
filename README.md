@@ -12,7 +12,7 @@
 
 ## Project Link
 
-* coming soon.
+* https://weather-app.gregreyes.dev/
 
 ## Description
 
@@ -24,4 +24,9 @@ JavaScript, Node.js, Express.js
 
 ## Setup
 
-directions on installing the project
+```sh
+git clone https://github.com/gregoryreyes/weather-app.git
+cd weather-app
+npm install
+npm start
+```
