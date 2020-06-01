@@ -55,7 +55,7 @@ const getWeather = async ( url ) => {
       }
 
       postWeather( '/add', { result: weatherInfo } );
-      getSingle( '/single' );
+      getLatestEntry( '/all' );
     })
   } catch( error ) {
     console.log( 'error', error );
@@ -82,15 +82,15 @@ const postWeather = async ( url = '', data = {} ) => {
 }
 
 // Async GET
-const getSingle = async ( url = '' ) => {
+const getLatestEntry = async ( url = '' ) => {
   const request = await fetch( url );
   try {
     const data = await request.json()
     .then( data => {
       document.getElementById('date').innerHTML = `Today's date: ${newDate}`;
-      document.getElementById('temp').innerHTML = `Current temperature in ${data.result.city}: ${data.result.temperature} <span class="degrees">&#8457;</span>`;
-      document.getElementById('description').innerHTML = `Condition: ${data.result.description}`;
-      document.getElementById('content').innerHTML = `Journal Entry: ${data.result.userFeelings}`;
+      document.getElementById('temp').innerHTML = `Current temperature in ${data[data.length - 1].result.city}: ${data[data.length - 1].result.temperature} <span class="degrees">&#8457;</span>`;
+      document.getElementById('description').innerHTML = `Condition: ${data[data.length - 1].result.description}`;
+      document.getElementById('content').innerHTML = `Journal Entry: ${data[data.length - 1].result.userFeelings}`;
       document.getElementById('zip').value = '';
       document.getElementById('feelings').value = '';
     })

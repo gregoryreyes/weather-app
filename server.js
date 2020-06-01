@@ -23,10 +23,6 @@ app.listen( port, () => {
 });
 
 // GET routes
-app.get( '/single', function( request, response ) {
-  response.send( projectData );
-});
-
 app.get( '/all', function( request, response ) {
   response.send( dataArchive );
 });
