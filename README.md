@@ -5,6 +5,8 @@
 * [Author](#author)
 * [Project Link](#project-link)
 * [Description](#description)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
 ## Author
 
