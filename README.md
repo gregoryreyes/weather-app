@@ -27,8 +27,8 @@ JavaScript, Node.js, Express.js
 ## Setup
 
 ```sh
-git clone https://github.com/gregoryreyes/weather-app.git
-cd weather-app
-npm install
-npm start
+git clone https://github.com/gregoryreyes/weather-app.git;
+cd weather-app;
+npm install;
+npm start;
 ```
