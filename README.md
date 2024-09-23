@@ -26,6 +26,11 @@ JavaScript, Node.js, Express.js
 
 ## Setup
 
+This app uses the dotenv NPM package. Create a `.env` file on the root directory and add the following environment variable:
+* `WEATHER_URL='https://api.openweathermap.org/data/2.5/weather?{you_secret_api_key}`
+
+To get an api key, sign up for a free account at [openweathermap.org](https://openweathermap.org/)
+
 ```sh
 git clone https://github.com/gregoryreyes/weather-app.git;
 cd weather-app;

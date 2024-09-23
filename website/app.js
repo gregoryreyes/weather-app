@@ -1,7 +1,3 @@
-/* Global Variables */
-const apiKey = 'c40eef61fab5968e0a12ecbbf7760348';
-let baseURL = `https://api.openweathermap.org/data/2.5/weather`;
-
 // Create a new date instance dynamically with JS
 const months = [
   '01',
@@ -29,36 +25,10 @@ function getInfo() {
   const zip = document.getElementById('zip').value;
 
   if ( zip.match(/^\d+/) && zip.match(/^\d+/)[0].length === 5 ) {
-    const url = `${baseURL}?zip=${zip}&appid=${apiKey}&units=imperial`;
-    getWeather( url );
+    getWeather( zip );
   } else {
     alert( 'Please enter a valid Zip Code' );
     return;
-  }
-}
-
-const getWeather = async ( url ) => {
-  const response = await fetch( url );
-  try {
-    const feelings = document.getElementById('feelings').value;
-    const data = await response.json()
-    .then( data => {
-      let city = data.name;
-      let temp = data.main.temp;
-      let description = data.weather[0].description;
-
-      weatherInfo = {
-        'city': city,
-        'temperature': temp,
-        'description': description,
-        'userFeelings': feelings
-      }
-
-      postWeather( '/add', { result: weatherInfo } );
-      getLatestEntry( '/all' );
-    })
-  } catch( error ) {
-    console.log( 'error', error );
   }
 }
 
@@ -81,6 +51,37 @@ const postWeather = async ( url = '', data = {} ) => {
   }
 }
 
+// Moving fetch to backend
+const getWeather = ( zip ) => {
+  try {
+    const fetchData = async () => {
+      const res = await fetch(`http://localhost:8080/getweather?zip=${zip}`);
+
+      const weatherConditions = await res.json();
+
+      const feelings = document.getElementById('feelings').value;
+      let city = weatherConditions.name;
+      let temp = weatherConditions.main.temp;
+      let description = weatherConditions.weather[0].description;
+
+      weatherInfo = {
+        'city': city,
+        'temperature': temp,
+        'description': description,
+        'userFeelings': feelings
+      }
+
+      postWeather( '/add', { result: weatherInfo } );
+      getLatestEntry( '/all' );
+    }
+
+    fetchData();
+
+  } catch (error) {
+    console.log( error );
+  }
+}
+
 // Async GET
 const getLatestEntry = async ( url = '' ) => {
   const request = await fetch( url );
@@ -98,3 +99,5 @@ const getLatestEntry = async ( url = '' ) => {
     console.log( 'error', error );
   }
 }
+
+// TODO: Add button to displayed all saved information from previous zip codes entered.

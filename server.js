@@ -1,5 +1,7 @@
+require('dotenv').config();
 projectData = [];
 dataArchive = [];
+weatherUrl = process.env.WEATHER_URL;
 
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
@@ -25,6 +27,20 @@ app.listen( port, () => {
 // GET routes
 app.get( '/all', function( request, response ) {
   response.send( dataArchive );
+});
+
+app.get( '/getweather', async function( req, res ) {
+  const zip = req.query.zip;
+  const url = `${weatherUrl}&zip=${zip}&units=imperial`;
+  
+  try {
+    const myWeather = ( await fetch(url)  ).json()
+    .then(  data  => {
+      res.json( data );
+    })
+  } catch (error) {
+    res.send(error).status(404);
+  }
 });
 
 // POST routes
