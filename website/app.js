@@ -55,7 +55,7 @@ const postWeather = async ( url = '', data = {} ) => {
 const getWeather = ( zip ) => {
   try {
     const fetchData = async () => {
-      const res = await fetch(`http://localhost:8080/getweather?zip=${zip}`);
+      const res = await fetch(`${window.location.href}getweather?zip=${zip}`);
 
       const weatherConditions = await res.json();
 
